@@ -11,5 +11,3 @@ const FeaturedRooms = () => {
 }
 
 export default FeaturedRooms
-
-//cont from 1:45:00
