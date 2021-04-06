@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Loading from '../components/Loading'
 import { RoomContext } from '../context'
 import defaultBg from '../images/room-1.jpeg'
 
@@ -10,9 +11,13 @@ const SingleRoom = (props) => {
     defBg: defaultBg
   })
   
-  const { getRoom } = useContext(RoomContext)
+  const { getRoom, loading } = useContext(RoomContext)
   const room = getRoom(slug.param)
-  console.log('room:', room);   //returns twice undefined then twice data
+  
+  
+  if (loading) {
+      <Loading />
+    }
   
   
   if(!room) {
@@ -40,7 +45,7 @@ const SingleRoom = (props) => {
 
   //aray destructuring with rest operator
   const [main, ...defaultImages] = images
-
+  
   return (
     <div>
       <section className="single-room">
