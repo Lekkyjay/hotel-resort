@@ -25,8 +25,8 @@ export const RoomContextProvider = ({ children }) => {
   useEffect(() => {
     let rooms = getFlatData(items)
     let featuredRooms = rooms.filter(room => room.featured === true)
-    let maxPrice = Math.max(...rooms.map(item => item.price))
-    let maxSize = Math.max(...rooms.map(item => item.size))
+    let maxPrice = Math.max(...rooms.map(item => item.price)) //spread is redundant here
+    let maxSize = Math.max(...rooms.map(item => item.size)) //because map also creates a copy
     setData({
       ...data,
       rooms, 
