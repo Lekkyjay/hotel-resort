@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Banner from '../components/Banner'
 import Loading from '../components/Loading'
+import StyledHero from '../components/StyledHero'
 import { RoomContext } from '../context'
 import defaultBg from '../images/room-1.jpeg'
 
@@ -48,6 +50,13 @@ const SingleRoom = (props) => {
   
   return (
     <div>
+      <StyledHero img={images[0] || slug.defBg}>
+        <Banner title={`${name} room`}>
+          <Link to="/rooms" className="btn-primary">
+            back to rooms
+          </Link>
+        </Banner>
+      </StyledHero>
       <section className="single-room">
         <div className="single-room-images">
           {defaultImages.map((item, index) => (
