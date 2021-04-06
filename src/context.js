@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
 import Client from './Contentful'
-// import items from './data'
 
 export const RoomContext = createContext()
 
@@ -28,9 +27,6 @@ export const RoomContextProvider = ({ children }) => {
     try {
       let response = await Client.getEntries({
         content_type: 'hotelRoomReservation',
-        // order: 'sys.createdAt'
-        // order: 'fields.price'
-        // order: '-fields.price'
       })
       let rooms = getFlatData(response.items)
       let featuredRooms = rooms.filter(room => room.featured === true);
@@ -50,23 +46,6 @@ export const RoomContextProvider = ({ children }) => {
     }
   }
   
-
-  // useEffect(() => {
-  //   let rooms = getFlatData(items)
-  //   let featuredRooms = rooms.filter(room => room.featured === true)
-  //   let maxPrice = Math.max(...rooms.map(item => item.price)) //spread is redundant here
-  //   let maxSize = Math.max(...rooms.map(item => item.size)) //because map also creates a copy
-  //   setData({
-  //     ...data,
-  //     rooms, 
-  //     featuredRooms, 
-  //     sortedRooms: rooms, 
-  //     loading: false, 
-  //     price: maxPrice, 
-  //     maxPrice, 
-  //     maxSize
-  //   })
-  // }, [])
 
   //flattens data
   const getFlatData = (data) => {

@@ -14,7 +14,6 @@ const RoomsContainer = () => {
 
   return (
     <div>
-      <h1>Rooms container</h1>
       <RoomsFilter rooms={rooms} />
       <RoomsList rooms={sortedRooms} />
     </div>
