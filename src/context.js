@@ -21,16 +21,6 @@ export const RoomContextProvider = ({ children }) => {
     pets: false
   })
 
-  const getFlatData = (data) => {
-    let flatData = data.map(item => {
-      let id = item.sys.id;
-      let images = item.fields.images.map(image => image.fields.file.url)
-
-      let room = { ...item.fields, images, id }
-      return room
-    });
-    return flatData
-  }
 
   useEffect(() => {
     let rooms = getFlatData(items)
@@ -49,9 +39,29 @@ export const RoomContextProvider = ({ children }) => {
     })
   }, [])
 
+  //flattens data
+  const getFlatData = (data) => {
+    let flatData = data.map(item => {
+      let id = item.sys.id;
+      let images = item.fields.images.map(image => image.fields.file.url)
+
+      let room = { ...item.fields, images, id }
+      return room
+    });
+    return flatData
+  }
+
+  const getRoom = slug => {
+    //create a copy of rooms array in tempRooms
+    let tempRooms = [...data.rooms];
+    const room = tempRooms.find(room => room.slug === slug);
+    return room;
+  }
+  
+
 
   return (
-    <RoomContext.Provider value={{ ...data }}>
+    <RoomContext.Provider value={{ ...data, getRoom }}>
       { children }
     </RoomContext.Provider>
   )
