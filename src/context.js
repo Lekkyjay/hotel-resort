@@ -21,20 +21,32 @@ export const RoomContextProvider = ({ children }) => {
     pets: false
   })
 
-  const flatData = (data) => {
-    let flattenData = data.map(item => {
+  const getFlatData = (data) => {
+    let flatData = data.map(item => {
       let id = item.sys.id;
-      let images = item.fields.images.map(image => image.fields.file.url);
+      let images = item.fields.images.map(image => image.fields.file.url)
 
-      let room = { ...item.fields, images, id };
-      return room;
+      let room = { ...item.fields, images, id }
+      return room
     });
-    return flattenData;
+    return flatData
   }
 
   useEffect(() => {
-    let rooms = flatData(items)
-    console.log(rooms)
+    let rooms = getFlatData(items)
+    let featuredRooms = rooms.filter(room => room.featured === true)
+    let maxPrice = Math.max(...rooms.map(item => item.price))
+    let maxSize = Math.max(...rooms.map(item => item.size))
+    setData({
+      ...data,
+      rooms, 
+      featuredRooms, 
+      sortedRooms: rooms, 
+      loading: false, 
+      price: maxPrice, 
+      maxPrice, 
+      maxSize
+    })
   }, [])
 
 
